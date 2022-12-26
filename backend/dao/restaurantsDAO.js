@@ -1,5 +1,8 @@
 //DAO - Data Access Objects
 
+import mongodb from "mongodb";
+const ObjectId = mongodb.ObjectId;
+
 //use to store a reference to db
 let restaurants;
 
@@ -15,7 +18,11 @@ export default class RestaurantsDAO {
       restaurants = await conn
         .db(process.env.RESTREVIEWS_NS)
         .collection("restaurants");
-    } catch (e) {}
+    } catch (e) {
+      console.error(
+        `Unable to establish a collection handle in restaurantsDAO: ${e}`
+      );
+    }
   }
 
   static async getRestaurants({
@@ -34,6 +41,7 @@ export default class RestaurantsDAO {
         query = { "address.zipcode": { $eq: filters["zipcode"] } };
       }
     }
+
     let cursor;
     //find the query from the db
     try {
@@ -60,7 +68,70 @@ export default class RestaurantsDAO {
       console.error(
         `Unable to convert cursor to array or problem counting documents, ${e}`
       );
-      return { restaurantsList: [], totalNumRestaurants };
+      return { restaurantsList: [], totalNumRestaurants: 0 };
+    }
+  }
+
+  // getting the reviews from one collection & put it into restaurant
+  static async getRestaurantByID(id) {
+    try {
+      //pipeline helps match different collections together
+      const pipeline = [
+        {
+          $match: {
+            //same object id as restaurants DAO
+            _id: new ObjectId(id),
+          },
+        },
+        {
+          //look up other items that is in reviews to add to the result
+          $lookup: {
+            from: "reviews",
+            let: {
+              id: "$_id",
+            },
+            pipeline: [
+              {
+                //match the restaurant id and find all the reviews that match the restaurant id
+                $match: {
+                  $expr: {
+                    $eq: ["restaurant_id", "$$id"],
+                  },
+                },
+              },
+              {
+                $sort: {
+                  date: -1,
+                },
+              },
+            ],
+            as: "reviews",
+          },
+        },
+        {
+          //add it into the results
+          $addFields: {
+            reviews: "$reviews",
+          },
+        },
+      ];
+      //aggregation pipeline is a framework for data aggregation modeled on the concept of data processing pipelines documents enter a multi-stage pipeline that transforms the documents into aggregated results.
+      return await restaurants.aggregrate(pipeline).next();
+    } catch (e) {
+      console.error(`Something went wrong in getRestaurantById: ${e}`);
+      throw e;
+    }
+  }
+
+  static async getCuisines() {
+    let cuisines = [];
+    try {
+      //get the cuisine one time
+      cuisines = await restaurants.distinct("cuisine");
+      return cuisines;
+    } catch (e) {
+      console.error(`Unable to get cuisines, ${e}`);
+      return cuisines;
     }
   }
 }

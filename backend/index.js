@@ -1,3 +1,4 @@
+
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
@@ -14,7 +15,7 @@ const port = process.env.PORT || 8000;
 //connect the database
 MongoClient.connect(process.env.RESTREVIEWS_DB_URI, {
   maxPoolSize: 50, //50 people
-  wtimeoutMS: 2500, //every 2500 millisec request will timeout
+  connectTimeoutMS: 2500, //every 2500 millisec request will timeout
   useNewUrlParser: true,
 })
   .catch((err) => {

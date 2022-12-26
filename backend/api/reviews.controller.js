@@ -11,7 +11,7 @@ export default class ReviewsController {
       };
       const date = new Date();
 
-      const ReviewRespose = await ReviewsDAO.addReview(
+      const ReviewResponse = await ReviewsDAO.addReview(
         restaurantId,
         userInfo,
         review,
@@ -35,6 +35,7 @@ export default class ReviewsController {
         text,
         date
       );
+
       var { error } = reviewResponse;
       if (error) {
         res.status(400).json({ error });
@@ -42,9 +43,10 @@ export default class ReviewsController {
 
       if (reviewResponse.modifiedCount === 0) {
         throw new Error(
-          "Unable to update review - user may not be original poster"
+          "unable to update review - user may not be original poster"
         );
       }
+
       res.json({ status: "success" });
     } catch (e) {
       res.status(500).json({ error: e.message });
