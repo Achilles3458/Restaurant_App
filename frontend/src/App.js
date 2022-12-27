@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-dark bg-dark px-5">
         <a href="/restaurants" className="navbar-brand">
           Restaurant Reviews
         </a>
@@ -49,23 +49,6 @@ function App() {
       </nav>
 
       <div className="container mt-3">
-        <Routes>
-          <Route path="/" element={<RestaurantsList />} exact />
-          <Route path="/restaurants" element={<RestaurantsList />} exact />
-          <Route
-            path="/restaurants/:id"
-            element={<Restaurants user={user} />}
-          />
-          <Route
-            path="/restaurants/:id/review"
-            element={<AddReview user={user} />}
-          />
-
-          <Route path="/login" element={<Login login={login} />} />
-        </Routes>
-      </div>
-
-      {/* <div className="container mt-3">
         <Switch>
           <Route
             exact
@@ -73,12 +56,12 @@ function App() {
             component={RestaurantsList}
           />
           <Route
-            path="/restaurants/:id"
-            render={(props) => <Restaurant {...props} user={user} />}
-          />
-          <Route
             path="/restaurants/:id/review"
             render={(props) => <AddReview {...props} user={user} />}
+          />
+          <Route
+            path="/restaurants/:id"
+            render={(props) => <Restaurant {...props} user={user} />}
           />
           <Route
             path="/login"
