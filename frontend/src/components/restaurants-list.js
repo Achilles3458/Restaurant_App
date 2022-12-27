@@ -124,9 +124,7 @@ const RestaurantsList = (props) => {
         <div className="input-group col-lg-4">
           <select onChange={onChangeSearchCuisine}>
             {cuisines.map((cuisine) => {
-              return (
-                <option value={cuisine}> {cuisine.substring(0, 20)} </option>
-              );
+              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
             })}
           </select>
           <div className="input-group-append">
@@ -141,10 +139,10 @@ const RestaurantsList = (props) => {
         </div>
       </div>
       <div className="row">
-        {restaurants.map((restaurant) => {
+        {restaurants.map((restaurant, index) => {
           const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
           return (
-            <div className="col-lg-4 pb-1">
+            <div className="col-lg-4 pb-1" key={index}>
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{restaurant.name}</h5>

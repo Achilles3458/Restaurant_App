@@ -1,6 +1,5 @@
-import { Route, Routes, Link } from "react-router-dom";
 import React from "react";
-
+import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
@@ -18,9 +17,10 @@ function App() {
   async function logout() {
     setUser(null);
   }
+
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark px-5">
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/restaurants" className="navbar-brand">
           Restaurant Reviews
         </a>
@@ -32,14 +32,13 @@ function App() {
           </li>
           <li className="nav-item">
             {user ? (
-              // eslint-disable-next-line jsx-a11y/anchor-is-valid
-              <a
+              <button
                 onClick={logout}
                 className="nav-link"
                 style={{ cursor: "pointer" }}
               >
                 Logout {user.name}
-              </a>
+              </button>
             ) : (
               <Link to={"/login"} className="nav-link">
                 Login
@@ -52,23 +51,17 @@ function App() {
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<RestaurantsList />} exact />
-          <Route path="/restaurants" element={<RestaurantsList />} />
+          <Route path="/restaurants" element={<RestaurantsList />} exact />
           <Route
             path="/restaurants/:id"
-            render={(props) => <Restaurant {...props} user={user} />}
-            element={<Restaurant user={user} />}
+            element={<Restaurants user={user} />}
           />
           <Route
             path="/restaurants/:id/review"
-            render={(props) => <AddReview {...props} user={user} />}
             element={<AddReview user={user} />}
           />
 
-          <Route
-            path="/login"
-            render={(props) => <Login {...props} login={login} />}
-            component={Login}
-          />
+          <Route path="/login" element={<Login login={login} />} />
         </Routes>
       </div>
 
@@ -80,19 +73,19 @@ function App() {
             component={RestaurantsList}
           />
           <Route
-            path="/restaurants/:id/review"
-            render={(props) => <AddReview {...props} user={user}></AddReview>}
-          />
-          <Route
             path="/restaurants/:id"
             render={(props) => <Restaurant {...props} user={user} />}
+          />
+          <Route
+            path="/restaurants/:id/review"
+            render={(props) => <AddReview {...props} user={user} />}
           />
           <Route
             path="/login"
             render={(props) => <Login {...props} login={login} />}
           />
         </Switch>
-      </div> */}
+      </div>
     </div>
   );
 }
