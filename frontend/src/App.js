@@ -10,6 +10,7 @@ import Login from "./components/login";
 function App() {
   const [user, setUser] = React.useState(null);
 
+  //passing the function to the login page
   async function login(user = null) {
     setUser(user);
   }
@@ -22,7 +23,7 @@ function App() {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark px-5">
         <a href="/restaurants" className="navbar-brand">
-          Restaurant Reviews
+          FoodRev
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
