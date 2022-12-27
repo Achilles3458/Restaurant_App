@@ -75,7 +75,7 @@ const RestaurantsList = (props) => {
   };
 
   const findByCuisine = () => {
-    if (searchCuisine == "All Cuisines") {
+    if (searchCuisine === "All Cuisines") {
       refreshList();
     } else {
       find(searchCuisine, "cuisine");
@@ -124,7 +124,9 @@ const RestaurantsList = (props) => {
         <div className="input-group col-lg-4">
           <select onChange={onChangeSearchCuisine}>
             {cuisines.map((cuisine) => {
-              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
+              return (
+                <option value={cuisine}> {cuisine.substring(0, 20)} </option>
+              );
             })}
           </select>
           <div className="input-group-append">

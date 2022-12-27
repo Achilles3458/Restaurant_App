@@ -1,9 +1,10 @@
+import { Route, Routes, Link } from "react-router-dom";
 import React from "react";
-import { Link, Routes, Route } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
-import Restaurants from "./components/restaurants";
+import Restaurant from "./components/restaurants";
 import RestaurantsList from "./components/restaurants-list";
 import Login from "./components/login";
 
@@ -51,17 +52,23 @@ function App() {
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<RestaurantsList />} exact />
-          <Route path="/restaurants" element={<RestaurantsList />} exact />
+          <Route path="/restaurants" element={<RestaurantsList />} />
           <Route
             path="/restaurants/:id"
-            element={<Restaurants user={user} />}
+            render={(props) => <Restaurant {...props} user={user} />}
+            element={<Restaurant user={user} />}
           />
           <Route
             path="/restaurants/:id/review"
+            render={(props) => <AddReview {...props} user={user} />}
             element={<AddReview user={user} />}
           />
 
-          <Route path="/login" element={<Login login={login} />} />
+          <Route
+            path="/login"
+            render={(props) => <Login {...props} login={login} />}
+            component={Login}
+          />
         </Routes>
       </div>
 
