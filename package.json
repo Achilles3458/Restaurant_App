@@ -1,11 +1,7 @@
 {
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "react-router-dom": "^5.3.4"
-=======
-    "bootstrap": "^5.2.3"
->>>>>>> 6dfa5a24bdc647deb6c67dd8edec4262c92fd3e5
   }
 }
