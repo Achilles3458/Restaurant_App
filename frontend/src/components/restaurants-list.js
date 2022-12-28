@@ -137,7 +137,7 @@ const RestaurantsList = (props) => {
           </div>
         </div>
         <div className="input-group col-lg-4">
-          <select onChange={onChangeSearchCuisine} className="select">
+          <select onChange={onChangeSearchCuisine} className="select px-1">
             {cuisines.map((cuisine) => {
               return (
                 <option value={cuisine}> {cuisine.substring(0, 20)} </option>
