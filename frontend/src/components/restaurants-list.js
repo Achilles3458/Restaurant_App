@@ -83,7 +83,7 @@ const RestaurantsList = (props) => {
   };
 
   return (
-    <div>
+    <div id="restaurants-list">
       <div className="row pb-1">
         <div className="input-group col-lg-4">
           <input
@@ -122,7 +122,7 @@ const RestaurantsList = (props) => {
           </div>
         </div>
         <div className="input-group col-lg-4">
-          <select onChange={onChangeSearchCuisine}>
+          <select onChange={onChangeSearchCuisine} className="select">
             {cuisines.map((cuisine) => {
               return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
             })}
@@ -138,7 +138,7 @@ const RestaurantsList = (props) => {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row row-lists">
         {restaurants.map((restaurant, index) => {
           const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
           return (
@@ -153,7 +153,7 @@ const RestaurantsList = (props) => {
                     <strong>Address: </strong>
                     {address}
                   </p>
-                  <div className="row">
+                  <div className="row row-buttons">
                     <Link
                       to={"/restaurants/" + restaurant._id}
                       className="btn btn-primary col-lg-5 mx-1 mb-1"
@@ -163,7 +163,7 @@ const RestaurantsList = (props) => {
                     <a
                       target="_blank"
                       href={"https://www.google.com/maps/place/" + address}
-                      className="btn btn-primary col-lg-5 mx-1 mb-1"
+                      className="btn btn-secondary col-lg-5 mx-1 mb-1"
                       rel="noreferrer"
                     >
                       View Map

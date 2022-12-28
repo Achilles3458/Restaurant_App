@@ -44,11 +44,11 @@ const Restaurant = (props) => {
   };
 
   return (
-    <div>
+    <div id="restaurant">
       {restaurant ? (
         <div>
           <h5>{restaurant.name}</h5>
-          <p>
+          <p className="address">
             <strong>Cuisine: </strong>
             {restaurant.cuisine}
             <br />
@@ -63,7 +63,7 @@ const Restaurant = (props) => {
             Add Review
           </Link>
           <h4> Reviews </h4>
-          <div className="row">
+          <div className="row review-list">
             {restaurant.reviews.length > 0 ? (
               restaurant.reviews.map((review, index) => {
                 return (

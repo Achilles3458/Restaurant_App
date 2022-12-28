@@ -50,28 +50,28 @@ const AddReview = (props) => {
   };
 
   return (
-    <div>
+    <div id="add-review">
       {props.user ? (
         <div className="submit-form">
           {submitted ? (
-            <div>
+            <div className="successful-submission">
               <h4>You submitted successfully!</h4>
               <Link
                 to={"/restaurants/" + props.match.params.id}
-                className="btn btn-success"
+                className="btn btn-success my-1"
               >
                 Back to Restaurant
               </Link>
             </div>
           ) : (
-            <div>
+            <div id="login-form">
               <div className="form-group">
-                <label htmlFor="description">
+                <label htmlFor="description" className="text-state">
                   {editing ? "Edit" : "Create"} Review
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control rev-input my-3"
                   id="text"
                   required
                   value={review}
@@ -79,17 +79,20 @@ const AddReview = (props) => {
                   name="text"
                 />
               </div>
-              <button onClick={saveReview} className="btn btn-success">
+              <button
+                onClick={saveReview}
+                className="btn btn-success btn-state"
+              >
                 Submit
               </button>
               <Link to={"/Restaurants"}>
-                <button className="btn btn-danger">Cancel</button>
+                <button className="btn btn-danger btn-state">Cancel</button>
               </Link>
             </div>
           )}
         </div>
       ) : (
-        <div>Please log in.</div>
+        <div className="card-login">Please log in.</div>
       )}
     </div>
   );
