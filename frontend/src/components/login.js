@@ -20,7 +20,8 @@ const Login = (props) => {
   };
 
   return (
-    <div className="submit-form">
+    <div className="submit-form" id="login-form">
+      <h1>Login</h1>
       <div>
         <div className="form-group">
           <label htmlFor="user">Username</label>
@@ -46,7 +47,7 @@ const Login = (props) => {
             name="id"
           />
         </div>
-        <button onClick={login} className="btn btn-success">
+        <button onClick={login} className="btn btn-success btn-login">
           Login
         </button>
       </div>

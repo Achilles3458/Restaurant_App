@@ -5,7 +5,7 @@ export default class RestaurantsController {
     //if exist, convert to int
     const restaurantsPerPage = req.query.restaurantsPerPage
       ? parseInt(req.query.restaurantsPerPage, 10)
-      : 20;
+      : 500;
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
     //set the query

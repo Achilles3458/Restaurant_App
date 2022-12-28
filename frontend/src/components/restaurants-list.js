@@ -9,6 +9,7 @@ const RestaurantsList = (props) => {
   const [searchCuisine, setSearchCuisine] = useState("");
   const [cuisines, setCuisines] = useState(["All Cuisines"]);
 
+  //react hook, tell react that the component needs to do something after render
   useEffect(() => {
     retrieveRestaurants();
     retrieveCuisines();
@@ -29,10 +30,10 @@ const RestaurantsList = (props) => {
     setSearchCuisine(searchCuisine);
   };
 
+  //retrieve restaurant data
   const retrieveRestaurants = () => {
     RestaurantDataService.getAll()
       .then((response) => {
-        console.log(response.data);
         setRestaurants(response.data.restaurants);
       })
       .catch((e) => {
@@ -40,10 +41,11 @@ const RestaurantsList = (props) => {
       });
   };
 
+  //retrieve cuisine data
   const retrieveCuisines = () => {
     RestaurantDataService.getCuisines()
       .then((response) => {
-        console.log(response.data);
+        //dropdown menu. concat to the array with the rest of data
         setCuisines(["All Cuisines"].concat(response.data));
       })
       .catch((e) => {
@@ -58,7 +60,6 @@ const RestaurantsList = (props) => {
   const find = (query, by) => {
     RestaurantDataService.find(query, by)
       .then((response) => {
-        console.log(response.data);
         setRestaurants(response.data.restaurants);
       })
       .catch((e) => {
@@ -74,6 +75,12 @@ const RestaurantsList = (props) => {
     find(searchZip, "zipcode");
   };
 
+  const handleReset = () => {
+    setSearchName("");
+    setSearchZip("");
+    setSearchCuisine(searchCuisine);
+  };
+
   const findByCuisine = () => {
     if (searchCuisine === "All Cuisines") {
       refreshList();
@@ -83,10 +90,18 @@ const RestaurantsList = (props) => {
   };
 
   return (
-    <div>
-      <div className="row pb-1">
+    <div id="restaurants-list">
+      <button
+        className="btn btn-secondary reset"
+        type="button"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
+      <form className="row pb-1" id="form-search">
         <div className="input-group col-lg-4">
           <input
+            id="form-search"
             type="text"
             className="form-control"
             placeholder="Search by name"
@@ -122,9 +137,11 @@ const RestaurantsList = (props) => {
           </div>
         </div>
         <div className="input-group col-lg-4">
-          <select onChange={onChangeSearchCuisine}>
+          <select onChange={onChangeSearchCuisine} className="select px-1">
             {cuisines.map((cuisine) => {
-              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
+              return (
+                <option value={cuisine}> {cuisine.substring(0, 20)} </option>
+              );
             })}
           </select>
           <div className="input-group-append">
@@ -137,8 +154,8 @@ const RestaurantsList = (props) => {
             </button>
           </div>
         </div>
-      </div>
-      <div className="row">
+      </form>
+      <div className="row row-lists">
         {restaurants.map((restaurant, index) => {
           const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
           return (
@@ -153,7 +170,7 @@ const RestaurantsList = (props) => {
                     <strong>Address: </strong>
                     {address}
                   </p>
-                  <div className="row">
+                  <div className="row row-buttons">
                     <Link
                       to={"/restaurants/" + restaurant._id}
                       className="btn btn-primary col-lg-5 mx-1 mb-1"
@@ -163,7 +180,7 @@ const RestaurantsList = (props) => {
                     <a
                       target="_blank"
                       href={"https://www.google.com/maps/place/" + address}
-                      className="btn btn-primary col-lg-5 mx-1 mb-1"
+                      className="btn btn-secondary col-lg-5 mx-1 mb-1"
                       rel="noreferrer"
                     >
                       View Map

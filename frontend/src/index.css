@@ -1,13 +1,133 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  color: #fff;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* components */
+
+/* Navbar and Body */
+#bg-body {
+  background: black;
+  height: 100vh;
+  /* padding-bottom: 50px; */
+}
+.navbar {
+  /* position: fixed; */
+  z-index: 4;
+  width: 100%;
+  border: none;
+}
+
+/* restaurants-list */
+#restaurants-list {
+  margin-top: 20px;
+}
+.input-group {
+  width: 320px;
+  padding: 10px 0;
+  margin: auto;
+}
+.select {
+  width: 240px;
+}
+
+.row-lists {
+  margin-top: 20px;
+  height: 580px;
+  overflow: scroll;
+}
+.row-buttons {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* reviews */
+
+#restaurant {
+  padding-top: 20px;
+}
+#restaurant h5 {
+  font-weight: 800;
+  font-size: 32px;
+  color: rgb(237, 230, 230);
+}
+#restaurant .address {
+  color: rgb(115, 112, 112);
+}
+
+#restaurant h4 {
+  margin-top: 50px;
+  color: rgb(237, 230, 230);
+}
+
+.card-body {
+  color: rgb(29, 29, 29);
+}
+
+.card-login,
+#login-form,
+.successful-submission {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  background: rgb(13, 13, 13);
+}
+
+.successful-submission {
+  text-align: center;
+}
+
+.card-login {
+  width: 320px;
+  text-align: center;
+}
+
+#login-form {
+  width: 420px;
+}
+
+.form-group {
+  padding: 5px 0;
+}
+.btn-login {
+  margin-top: 1rem;
+  color: black;
+}
+
+.nav-login {
+  color: white;
+  background: green;
+  border: none;
+  border-radius: 5px;
+}
+
+.text-state {
+  font-size: 22px;
+}
+
+.btn-state {
+  margin-right: 5px;
+}
+
+.reset {
+  position: absolute;
+  right: 35px;
+  top: 10px;
+  z-index: 5;
 }

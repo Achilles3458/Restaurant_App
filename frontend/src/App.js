@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../src/index.css";
 
 import AddReview from "./components/add-review";
 import Restaurant from "./components/restaurants";
@@ -20,7 +21,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div id="bg-body">
       <nav className="navbar navbar-expand navbar-dark bg-dark px-5">
         <a href="/restaurants" className="navbar-brand">
           FoodRev
@@ -35,7 +36,7 @@ function App() {
             {user ? (
               <button
                 onClick={logout}
-                className="nav-link"
+                className="nav-link nav-login"
                 style={{ cursor: "pointer" }}
               >
                 Logout {user.name}
