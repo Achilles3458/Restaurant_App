@@ -124,3 +124,10 @@ code {
 .btn-state {
   margin-right: 5px;
 }
+
+.reset {
+  position: absolute;
+  right: 35px;
+  top: 10px;
+  z-index: 5;
+}

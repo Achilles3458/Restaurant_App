@@ -74,6 +74,12 @@ const RestaurantsList = (props) => {
     find(searchZip, "zipcode");
   };
 
+  const handleReset = () => {
+    setSearchName("");
+    setSearchZip("");
+    setSearchCuisine(searchCuisine);
+  };
+
   const findByCuisine = () => {
     if (searchCuisine === "All Cuisines") {
       refreshList();
@@ -84,9 +90,17 @@ const RestaurantsList = (props) => {
 
   return (
     <div id="restaurants-list">
-      <div className="row pb-1">
+      <button
+        className="btn btn-secondary reset"
+        type="button"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
+      <form className="row pb-1" id="form-search">
         <div className="input-group col-lg-4">
           <input
+            id="form-search"
             type="text"
             className="form-control"
             placeholder="Search by name"
@@ -124,7 +138,9 @@ const RestaurantsList = (props) => {
         <div className="input-group col-lg-4">
           <select onChange={onChangeSearchCuisine} className="select">
             {cuisines.map((cuisine) => {
-              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
+              return (
+                <option value={cuisine}> {cuisine.substring(0, 20)} </option>
+              );
             })}
           </select>
           <div className="input-group-append">
@@ -137,7 +153,7 @@ const RestaurantsList = (props) => {
             </button>
           </div>
         </div>
-      </div>
+      </form>
       <div className="row row-lists">
         {restaurants.map((restaurant, index) => {
           const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
