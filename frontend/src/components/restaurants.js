@@ -16,7 +16,6 @@ const Restaurant = (props) => {
     RestaurantDataService.get(id)
       .then((response) => {
         setRestaurant(response.data);
-        console.log(response.data.id);
       })
       .catch((e) => {
         console.log(e);

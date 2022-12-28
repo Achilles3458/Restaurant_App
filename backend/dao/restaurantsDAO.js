@@ -71,7 +71,7 @@ export default class RestaurantsDAO {
       return { restaurantsList: [], totalNumRestaurants: 0 };
     }
   }
-
+  // getting the reviews from one collection & put it back into restaurant
   static async getRestaurantByID(id) {
     try {
       const pipeline = [
@@ -81,6 +81,7 @@ export default class RestaurantsDAO {
           },
         },
         {
+          //look up other items that is in reviews to add to the result
           $lookup: {
             from: "reviews",
             let: {
@@ -88,6 +89,7 @@ export default class RestaurantsDAO {
             },
             pipeline: [
               {
+                //match the restaurant id and find all the reviews that match the restaurant id
                 $match: {
                   $expr: {
                     $eq: ["$restaurant_id", "$$id"],
@@ -104,11 +106,13 @@ export default class RestaurantsDAO {
           },
         },
         {
+          //add it into the results
           $addFields: {
             reviews: "$reviews",
           },
         },
       ];
+      //aggregation pipeline is a framework for data aggregation modeled on the concept of data processing pipelines documents enter a multi-stage pipeline that transforms the documents into aggregated results.
       return await restaurants.aggregate(pipeline).next();
     } catch (e) {
       console.error(`Something went wrong in getRestaurantByID: ${e}`);

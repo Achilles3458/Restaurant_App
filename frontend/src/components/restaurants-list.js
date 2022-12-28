@@ -9,6 +9,7 @@ const RestaurantsList = (props) => {
   const [searchCuisine, setSearchCuisine] = useState("");
   const [cuisines, setCuisines] = useState(["All Cuisines"]);
 
+  //react hook, tell react that the component needs to do something after render
   useEffect(() => {
     retrieveRestaurants();
     retrieveCuisines();
@@ -29,10 +30,10 @@ const RestaurantsList = (props) => {
     setSearchCuisine(searchCuisine);
   };
 
+  //retrieve restaurant data
   const retrieveRestaurants = () => {
     RestaurantDataService.getAll()
       .then((response) => {
-        console.log(response.data);
         setRestaurants(response.data.restaurants);
       })
       .catch((e) => {
@@ -40,10 +41,11 @@ const RestaurantsList = (props) => {
       });
   };
 
+  //retrieve cuisine data
   const retrieveCuisines = () => {
     RestaurantDataService.getCuisines()
       .then((response) => {
-        console.log(response.data);
+        //dropdown menu. concat to the array with the rest of data
         setCuisines(["All Cuisines"].concat(response.data));
       })
       .catch((e) => {
@@ -58,7 +60,6 @@ const RestaurantsList = (props) => {
   const find = (query, by) => {
     RestaurantDataService.find(query, by)
       .then((response) => {
-        console.log(response.data);
         setRestaurants(response.data.restaurants);
       })
       .catch((e) => {

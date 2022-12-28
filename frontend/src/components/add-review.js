@@ -7,11 +7,14 @@ const AddReview = (props) => {
 
   let editing = false;
 
+  //check if current review is part of the state
   if (props.location.state && props.location.state.currentReview) {
+    //if true - set editing to true
     editing = true;
+    //set initial review state to props at location state that current review text so that the text of the review being edited
     initialReviewState = props.location.state.currentReview.text;
   }
-
+  //create variables with initial state
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
 
@@ -32,19 +35,17 @@ const AddReview = (props) => {
       RestaurantDataService.updateReview(data)
         .then((response) => {
           setSubmitted(true);
-          console.log(response.data);
         })
         .catch((e) => {
-          console.log(e);
+          e.status.json("Error" + e);
         });
     } else {
       RestaurantDataService.createReview(data)
         .then((response) => {
           setSubmitted(true);
-          console.log(response.data);
         })
         .catch((e) => {
-          console.log(e);
+          e.status.json("Error" + e);
         });
     }
   };
